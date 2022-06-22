@@ -3,6 +3,7 @@ import 'package:apresentacao/AppBlocObserver.dart';
 import 'package:apresentacao/app.dart';
 import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/database/bloc/database_bloc.dart';
 import 'package:apresentacao/features/database/database_repository_impl.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';

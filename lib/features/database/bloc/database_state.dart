@@ -1,6 +1,7 @@
-part of 'database_bloc.dart';
+ import 'package:apresentacao/models/user_model.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class DatabaseState extends Equatable {
+class DatabaseState extends Equatable {
   const DatabaseState();
   
   @override

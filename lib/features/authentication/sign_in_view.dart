@@ -1,8 +1,10 @@
 
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
 import 'package:apresentacao/features/form-validation/sign_up_view.dart';
-import 'package:apresentacao/screens/home_view.dart';
+import 'package:apresentacao/view/home_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,7 +42,7 @@ class SignInView extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthenticationSuccess) {
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const HomeView()),
+                  MaterialPageRoute(builder: (context) => HomeView()),
                   (Route<dynamic> route) => false);
             }
           },

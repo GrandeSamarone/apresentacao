@@ -17,9 +17,8 @@ class DatabaseService {
     return snapshot.docs.map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot)).toList();
     }
 
-        Future<String> retrieveUserName(UserModel user) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection("Users").doc(user.uid).get();
-    return snapshot.data()!["nome"];
+        Future<Map<String, dynamic>> retrieveUser(UserModel user) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await _db.collection("Users").doc(user.uid).get();
+    return snapshot.data()!;
     }
 }

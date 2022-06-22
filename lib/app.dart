@@ -1,5 +1,6 @@
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
-import 'package:apresentacao/screens/home_view.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
+import 'package:apresentacao/view/home_view.dart';
 import 'package:apresentacao/welcome_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class BlocNavigate extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         if (state is AuthenticationSuccess) {
-          return const HomeView();
+          return  HomeView();
         } else {
           return const WelcomeView();
         }

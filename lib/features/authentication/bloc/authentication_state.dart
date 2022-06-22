@@ -1,4 +1,5 @@
-part of 'authentication_bloc.dart';
+
+import 'package:equatable/equatable.dart';
 
 abstract class AuthenticationState extends Equatable {
   const AuthenticationState();
@@ -13,11 +14,11 @@ class AuthenticationInitial extends AuthenticationState {
 }
 
 class AuthenticationSuccess extends AuthenticationState {
-  final String? displayName;
-  const AuthenticationSuccess({this.displayName});
+  Map<String,dynamic> dados;
+   AuthenticationSuccess({required this.dados});
 
     @override
-  List<Object?> get props => [displayName];
+  List<Object?> get props => [dados];
 }
 
 class AuthenticationFailure extends AuthenticationState {

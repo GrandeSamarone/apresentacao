@@ -1,4 +1,5 @@
-part of 'database_bloc.dart';
+
+import 'package:equatable/equatable.dart';
 
 abstract class DatabaseEvent extends Equatable {
   const DatabaseEvent();

@@ -36,8 +36,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<String?> retrieveUserName(UserModel user) {
-    return dbService.retrieveUserName(user);
+  Future<Map<String,dynamic>> retrieveUser(UserModel user) {
+    return dbService.retrieveUser(user);
   }
 }
 
@@ -46,5 +46,5 @@ abstract class AuthenticationRepository {
   Future<UserCredential?> signUp(UserModel user);
   Future<UserCredential?> signIn(UserModel user);
   Future<void> signOut();
-  Future<String?> retrieveUserName(UserModel user);
+  Future<Map<String,dynamic>> retrieveUser(UserModel user);
 }

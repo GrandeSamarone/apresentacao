@@ -1,12 +1,9 @@
+
+import 'package:apresentacao/features/database/bloc/database_event.dart';
+import 'package:apresentacao/features/database/bloc/database_state.dart';
+import 'package:apresentacao/features/database/database_repository_impl.dart';
 import 'package:apresentacao/models/user_model.dart';
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-
-import '../database_repository_impl.dart';
-
-
-part 'database_event.dart';
-part 'database_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
   final DatabaseRepository _databaseRepository;

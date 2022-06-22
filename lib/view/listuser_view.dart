@@ -1,13 +1,15 @@
-
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/database/bloc/database_bloc.dart';
+import 'package:apresentacao/features/database/bloc/database_event.dart';
+import 'package:apresentacao/features/database/bloc/database_state.dart';
 import 'package:apresentacao/welcome_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+class listuserview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class HomeView extends StatelessWidget {
         if (state is AuthenticationFailure) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const WelcomeView()),
-              (Route<dynamic> route) => false);
+                  (Route<dynamic> route) => false);
         }
       },
       buildWhen: ((previous, current) {
@@ -41,11 +43,11 @@ class HomeView extends StatelessWidget {
                           .add(AuthenticationSignedOut());
                     })
               ],
-              title: Text((state as AuthenticationSuccess).displayName!),
+              title: Text((state as AuthenticationSuccess).dados["nome"]),
             ),
             body: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (context, state) {
-                String? displayName = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).displayName;
+                String? displayName = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados["nome"];
                 if (state is DatabaseSuccess &&
                     displayName !=
                         (context.read<DatabaseBloc>().state as DatabaseSuccess)
@@ -70,7 +72,7 @@ class HomeView extends StatelessWidget {
                               title: Text(
                                   state.listOfUserData[index].nome!),
                               subtitle:
-                                  Text(state.listOfUserData[index].email!),
+                              Text(state.listOfUserData[index].email!),
                               trailing: Text(
                                   state.listOfUserData[index].idade!.toString()),
                             ),
