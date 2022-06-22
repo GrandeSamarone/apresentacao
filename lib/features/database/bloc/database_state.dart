@@ -12,11 +12,13 @@ class DatabaseInitial extends DatabaseState {}
 
 class DatabaseSuccess extends DatabaseState {
   final List<UserModel> listOfUserData;
-  final String? nome;
-  const DatabaseSuccess(this.listOfUserData,this.nome);
+ // final String? nome;
+  final  Map<String,dynamic> dados;
+  const DatabaseSuccess(this.listOfUserData,this.dados);
+ // const DatabaseSuccess(this.listOfUserData,this.nome);
 
     @override
-  List<Object?> get props => [listOfUserData,nome];
+  List<Object?> get props => [listOfUserData,dados];
 }
 
 class DatabaseError extends DatabaseState {

@@ -13,6 +13,6 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
 
   _fetchUserData(DatabaseFetched event, Emitter<DatabaseState> emit) async {
       List<UserModel> listofUserData = await _databaseRepository.retrieveUserData();
-      emit(DatabaseSuccess(listofUserData,event.nome));
+      emit(DatabaseSuccess(listofUserData,event.dados));
   }
 }

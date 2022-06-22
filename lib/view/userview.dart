@@ -42,23 +42,14 @@ class userview extends StatelessWidget {
                           .add(AuthenticationSignedOut());
                     })
               ],
-              title: Text((state as AuthenticationSuccess).dados["nome"]),
+              title:const Text("Meus Dados"),
             ),
             body: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (context, state) {
-                Map<String,dynamic> displayName = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados;
-               // String? displayEmail = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).displayName;
-              //  String? displayIdade = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).id;
-                if (state is DatabaseSuccess &&
-                    displayName !=
-                        (context.read<DatabaseBloc>().state as DatabaseSuccess)
-                            .nome) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayName["nome"]));
-                }
-                if (state is DatabaseInitial) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayName["nome"]));
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state is DatabaseSuccess) {
+                Map<String,dynamic> displayDados = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados;
+                  if (state is DatabaseSuccess) {
+                    print("STATE");
+                    print(state);
                   if (state.listOfUserData.isEmpty) {
                     return const Center(
                       child: Text("Nenhum dado disponível!"),
@@ -66,7 +57,9 @@ class userview extends StatelessWidget {
                   } else {
                     return Column(
                       children: [
-                        Text(displayName["nome"]!)
+                        Text("Nome:${displayDados["nome"]!}"),
+                        Text("Email:${displayDados["email"]!}"),
+                        Text("Idade:${displayDados["idade"].toString()}")
                       ],
                     );
                   }

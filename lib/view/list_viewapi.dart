@@ -10,7 +10,7 @@ class listviewApi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Posts')),
+      appBar: AppBar(title:const Center(child: Text('Dados API'))),
       body: BlocProvider(
         create: (_) => PostBloc(httpClient: http.Client())..add(PostFetched()),
         child: PostsList(),

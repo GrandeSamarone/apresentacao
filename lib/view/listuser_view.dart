@@ -13,51 +13,24 @@ class listuserview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        if (state is AuthenticationFailure) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const WelcomeView()),
-                  (Route<dynamic> route) => false);
-        }
-      },
-      buildWhen: ((previous, current) {
-        if (current is AuthenticationFailure) {
-          return false;
-        }
-        return true;
-      }),
-      builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
-              automaticallyImplyLeading: false,
-              actions: <Widget>[
-                IconButton(
-                    icon: const Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () async {
-                      context
-                          .read<AuthenticationBloc>()
-                          .add(AuthenticationSignedOut());
-                    })
-              ],
-              title: Text((state as AuthenticationSuccess).dados["nome"]),
+              title:const Center(child:Text("Usuarios Banco de Dados")),
             ),
             body: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (context, state) {
-                String? displayName = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados["nome"];
+                Map<String,dynamic> displayDados = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados!;
                 if (state is DatabaseSuccess &&
-                    displayName !=
+                    displayDados !=
                         (context.read<DatabaseBloc>().state as DatabaseSuccess)
-                            .nome) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayName));
+                            .dados) {
+                  context.read<DatabaseBloc>().add(DatabaseFetched(displayDados));
                 }
                 if (state is DatabaseInitial) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayName));
+                  context.read<DatabaseBloc>().add(DatabaseFetched(displayDados));
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is DatabaseSuccess) {
+                } else
+                  if (state is DatabaseSuccess) {
                   if (state.listOfUserData.isEmpty) {
                     return const Center(
                       child: Text("Nenhum dado disponível!"),
@@ -86,7 +59,5 @@ class listuserview extends StatelessWidget {
                 }
               },
             ));
-      },
-    );
   }
 }
