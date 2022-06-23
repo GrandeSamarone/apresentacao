@@ -7,11 +7,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   AuthenticationService service = AuthenticationService();
   DatabaseService dbService = DatabaseService();
 
+  ///Dados Atuais
   @override
   Stream<UserModel> getCurrentUser() {
     return service.retrieveCurrentUser();
   }
 
+  ///Login
   @override
   Future<UserCredential?> signUp(UserModel user) {
     try {
@@ -21,6 +23,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     }
   }
 
+  ///Cadastro
   @override
   Future<UserCredential?> signIn(UserModel user) {
     try {

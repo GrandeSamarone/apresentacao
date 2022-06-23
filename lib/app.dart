@@ -1,5 +1,6 @@
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
+import 'package:apresentacao/utils/NavigationService.dart';
 import 'package:apresentacao/view/home_view.dart';
 import 'package:apresentacao/welcome_view.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: NavigationService.navigatorKeyGlobal,
         home: const BlocNavigate(),
         title:"Trabalho",
         theme: ThemeData(
@@ -30,7 +32,7 @@ class BlocNavigate extends StatelessWidget {
         if (state is AuthenticationSuccess) {
           return  HomeView();
         } else {
-          return const WelcomeView();
+          return const Welcome_view();
         }
       },
     );

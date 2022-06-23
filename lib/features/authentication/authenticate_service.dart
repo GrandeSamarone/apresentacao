@@ -16,17 +16,18 @@ class AuthenticationService {
     });
   }
 
+///cadastrando firebase
   Future<UserCredential?> signUp(UserModel user) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: user.email!,password: user.senha!);
-          await verifyEmail();
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }
   }
 
+  ///Login firebase
   Future<UserCredential?> signIn(UserModel user) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -37,13 +38,8 @@ class AuthenticationService {
     }
   }
 
-  Future<void> verifyEmail() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null && !user.emailVerified) {
-      return await user.sendEmailVerification();
-    }
-  }
 
+  ///sair
   Future<void> signOut() async {
     return await FirebaseAuth.instance.signOut();
   }

@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   String? uid;
-  bool? isVerified;
   final String? email;
   String? senha;
   final String? nome;
   final int? idade;
-  UserModel({this.uid, this.email, this.senha, this.nome, this.idade,this.isVerified});
+  UserModel({this.uid, this.email, this.senha, this.nome, this.idade});
 
   Map<String, dynamic> toMap() {
     return {
@@ -25,12 +24,11 @@ class UserModel {
  
 
   UserModel copyWith({
-    bool? isVerified,
     String? uid,
     String? email,
-    String? password,
-    String? displayName,
-    int? age,
+    String? senha,
+    String? nome,
+    int? idade,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -38,7 +36,6 @@ class UserModel {
         senha: senha ?? this.senha,
         nome: nome ?? this.nome,
         idade: idade ?? this.idade,
-      isVerified: isVerified ?? this.isVerified
     );
   }
 }

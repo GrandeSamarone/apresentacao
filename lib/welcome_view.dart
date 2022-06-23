@@ -2,8 +2,8 @@ import 'package:apresentacao/features/authentication/sign_in_view.dart';
 import 'package:apresentacao/features/form-validation/sign_up_view.dart';
 import 'package:flutter/material.dart';
 
-class WelcomeView extends StatelessWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+class Welcome_view extends StatelessWidget {
+  const Welcome_view({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ class userview extends StatelessWidget {
       listener: (context, state) {
         if (state is AuthenticationFailure) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const WelcomeView()),
+              MaterialPageRoute(builder: (context) => const Welcome_view()),
                   (Route<dynamic> route) => false);
         }
       },

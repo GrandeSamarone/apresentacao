@@ -1,9 +1,13 @@
 import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
+import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/database/database_repository_impl.dart';
 import 'package:apresentacao/models/user_model.dart';
+import 'package:apresentacao/utils/NavigationService.dart';
+import 'package:apresentacao/view/home_view.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 part 'form_event.dart';
 part 'form_state.dart';
@@ -121,14 +125,10 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
       try {
 
         UserCredential? authUser = await _authenticationRepository.signUp(user);
-        UserModel updatedUser = user.copyWith(
-            uid: authUser!.user!.uid, isVerified: authUser.user!.emailVerified);
+        UserModel updatedUser = user.copyWith(uid: authUser!.user!.uid,);
         await _databaseRepository.saveUserData(updatedUser);
-        if (updatedUser.isVerified!) {
           emit(state.copyWith(isLoading: false, errorMessage: ""));
-        } else {
-          emit(state.copyWith(isFormValid: false,errorMessage: "Verifique seu e-mail, clicando no link enviado a você por e-mail.",isLoading: false));
-        }
+
       } on FirebaseAuthException catch (e) {
         emit(state.copyWith(
             isLoading: false, errorMessage: e.message, isFormValid: false));
@@ -147,13 +147,10 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
         isLoading: true));
     if (state.isFormValid) {
       try {
-        UserCredential? authUser = await _authenticationRepository.signIn(user);
-        UserModel updatedUser = user.copyWith(isVerified: authUser!.user!.emailVerified);
-        if (updatedUser.isVerified!) {
-          emit(state.copyWith(isLoading: false, errorMessage: ""));
-        } else {
-          emit(state.copyWith(isFormValid: false,errorMessage: "Verifique seu e-mail, clicando no link enviado a você por e-mail.",isLoading: false));
-        }
+        UserCredential? authUser = await _authenticationRepository.signUp(user);
+        UserModel updatedUser = user.copyWith(uid: authUser!.user!.uid);
+        await _databaseRepository.saveUserData(updatedUser);
+        emit(state.copyWith(isLoading: false, errorMessage: ""));
       } on FirebaseAuthException catch (e) {
         emit(state.copyWith(
             isLoading: false, errorMessage: e.message, isFormValid: false));

@@ -52,45 +52,6 @@ class SignUpView extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // InkWell(
-                      //   child:WIBusy(
-                      //       busy:false,
-                      //       child: CircleAvatar(
-                      //         radius: 50,
-                      //         backgroundColor: Colors.grey,
-                      //         //  backgroundImage: NetworkImage(userController.motoboy!.icon_foto),
-                      //         child: Container(
-                      //           alignment: Alignment.center,
-                      //           height: 110,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.grey.withOpacity(0.4),
-                      //               borderRadius: const BorderRadius.all(
-                      //                   Radius.circular(50))
-                      //           ),
-                      //           child: Row(
-                      //               mainAxisAlignment: MainAxisAlignment.center,
-                      //               children:  const [
-                      //                 Text(
-                      //                   "alterar",
-                      //                   style:
-                      //                   TextStyle(
-                      //                       fontFamily: "Brand-Regular",
-                      //                       color: Colors.white,
-                      //                       fontSize: 16
-                      //                   ),
-                      //                 ),
-                      //                 Icon(Icons.camera_alt
-                      //                   , color: Colors.white,)
-                      //               ]
-                      //           ),
-                      //         ),
-                      //       )
-                      //   ),
-                      //
-                      //   onTap: () {
-                      //     //   userController.pickerImage();
-                      //   },
-                      // ),
                       const Text("Cadastre-se abaixo!",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -297,7 +258,7 @@ class ErrorDialog extends StatelessWidget {
           child: const Text("Ok"),
           onPressed: () => errorMessage!.contains("Por favor, verifique seu e-mail")
               ? Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const WelcomeView()),
+                  MaterialPageRoute(builder: (context) => const Welcome_view()),
                   (Route<dynamic> route) => false)
               : Navigator.of(context).pop(),
         )
