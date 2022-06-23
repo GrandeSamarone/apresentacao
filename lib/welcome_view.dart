@@ -48,7 +48,7 @@ class Welcome_view extends StatelessWidget {
                             builder: (context) => const SignInView()),
                       );
                     },
-                    child: const Text("Iniciar"),
+                    child: const Text("Login"),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
                         shadowColor: Colors.transparent,

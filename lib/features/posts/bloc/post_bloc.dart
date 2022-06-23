@@ -9,6 +9,8 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+
+///limit de post por rollagem
 const _postLimit = 20;
 const throttleDuration = Duration(milliseconds: 100);
 EventTransformer<E> throttleDroppable<E>(Duration duration) {

@@ -20,6 +20,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+
+    ///Verificando se o usuario está logado
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is AuthenticationFailure) {
@@ -48,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                 listuserview(),
                 userview(),
               ],),
-
+          ///Navegação inferior
             bottomNavigationBar: BottomNavigationBar(
                     unselectedItemColor: Colors.grey,
                     currentIndex:currentPage,

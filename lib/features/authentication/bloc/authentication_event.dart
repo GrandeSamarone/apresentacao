@@ -8,11 +8,14 @@ abstract class AuthenticationEvent extends Equatable {
   List<Object> get props => [];
 }
 
+
+///evento usuario esta logando
 class AuthenticationStarted extends AuthenticationEvent {
       @override
   List<Object> get props => [];
 }
 
+///usuario esta saindo
 class AuthenticationSignedOut extends AuthenticationEvent {
       @override
   List<Object> get props => [];

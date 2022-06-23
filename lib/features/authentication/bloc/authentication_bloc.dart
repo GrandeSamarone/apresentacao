@@ -4,7 +4,7 @@ import 'package:apresentacao/features/authentication/bloc/authentication_event.d
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+
 
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -13,16 +13,21 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   AuthenticationBloc(this._authenticationRepository)
       : super(AuthenticationInitial()) {
     on<AuthenticationEvent>((event, emit) async {
+
+      ///se o evento do usuarior for fazer o login
       if (event is AuthenticationStarted) {
         UserModel user = await _authenticationRepository.getCurrentUser().first;
+
+       /// verificando se realmente autenticou
         if (user.uid != "uid") {
+
           Map<String,dynamic> displayDados = await _authenticationRepository.retrieveUser(user);
           emit(AuthenticationSuccess(dados:displayDados));
         } else {
           emit(AuthenticationFailure());
         }
-      }
-      else if(event is AuthenticationSignedOut){
+      } else if(event is AuthenticationSignedOut){
+         ///quando o usuario clica pra sair
         await _authenticationRepository.signOut();
         emit(AuthenticationFailure());
       }

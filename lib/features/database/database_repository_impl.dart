@@ -19,6 +19,7 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
   }
 }
 
+
 abstract class DatabaseRepository {
   Future<void> saveUserData(UserModel user);
   Future<List<UserModel>> retrieveUserData();

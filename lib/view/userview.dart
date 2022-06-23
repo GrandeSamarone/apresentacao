@@ -12,25 +12,16 @@ class userview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        if (state is AuthenticationFailure) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const Welcome_view()),
-                  (Route<dynamic> route) => false);
-        }
-      },
-      buildWhen: ((previous, current) {
-        if (current is AuthenticationFailure) {
-          return false;
-        }
-        return true;
-      }),
-      builder: (context, state) {
+
+   /// recebendo os dados do usuario atual
+    final userdados = context.select((AuthenticationBloc bloc) => bloc.state.get_Dados);
+
+
         return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              actions: <Widget>[
+              actions:[
+                ///fazerndo logout
                 IconButton(
                     icon: const Icon(
                       Icons.logout,
@@ -44,31 +35,12 @@ class userview extends StatelessWidget {
               ],
               title:const Text("Meus Dados"),
             ),
-            body: BlocBuilder<DatabaseBloc, DatabaseState>(
-              builder: (context, state) {
-                Map<String,dynamic> displayDados = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados;
-                  if (state is DatabaseSuccess) {
-                    print("STATE");
-                    print(state);
-                  if (state.listOfUserData.isEmpty) {
-                    return const Center(
-                      child: Text("Nenhum dado disponível!"),
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        Text("Nome:${displayDados["nome"]!}"),
-                        Text("Email:${displayDados["email"]!}"),
-                        Text("Idade:${displayDados["idade"].toString()}")
-                      ],
-                    );
-                  }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ));
-      },
-    );
+            body:Column(
+        children: [
+        Text("Nome:${userdados["nome"]}"),
+        Text("Email:${userdados["email"]!}"),
+        Text("Idade:${userdados["idade"].toString()}")
+        ],
+        ));
   }
 }

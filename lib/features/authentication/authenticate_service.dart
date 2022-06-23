@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthenticationService {
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  ///altera o estado do usuario se for diferente de null ele retorna os dados, senão ele
+  ///preenche o uid com  a string uid;
   Stream<UserModel> retrieveCurrentUser() {
     return auth.authStateChanges().map((User? user) {
       if (user != null) {

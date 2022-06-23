@@ -33,6 +33,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     }
   }
 
+  ///sair
   @override
   Future<void> signOut() {
     return service.signOut();

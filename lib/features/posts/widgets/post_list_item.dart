@@ -23,10 +23,8 @@ class PostListItem extends StatelessWidget {
             ),
           ),
         ),
-      //  leading: Text('${post.id}', style: textTheme.caption),
+
         title: Text(post.title),
-        // isThreeLine: true,
-        // subtitle: Text(post.body),
         dense: true,
       ),
     );

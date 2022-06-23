@@ -52,7 +52,6 @@ class SignInView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-           // systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.white),
           ),
           backgroundColor: const Color(0xFFFFFFFF),
           body: Center(
