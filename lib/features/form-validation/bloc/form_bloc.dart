@@ -113,7 +113,8 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
         email: state.email,
         senha: state.senha,
         idade: state.idade,
-        nome: state.nome);
+        nome: state.nome
+    );
 
     if (event.value == Status.signUp) {
       await _updateUIAndSignUp(event, emit, user);
