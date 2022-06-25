@@ -1,6 +1,9 @@
 import 'package:apresentacao/NavigationService.dart';
+import 'package:apresentacao/features/movies/movie_cubit.dart';
+import 'package:apresentacao/features/movies/movie_repository.dart';
 import 'package:apresentacao/features/posts/bloc/post_bloc.dart';
 import 'package:apresentacao/view/Splash_view.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:apresentacao/AppBlocObserver.dart';
 import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
@@ -32,8 +35,16 @@ void main() async {
           create: (context) => FormBloc(
               AuthenticationRepositoryImpl(), DatabaseRepositoryImpl()),
         ),
+
         BlocProvider(
           create: (context) => DatabaseBloc(DatabaseRepositoryImpl()),
+        ) ,
+        BlocProvider(
+          create: (context) => MoviesCubit(
+            repository: MovieRepository(
+              Dio(),
+            ),
+          ),
         )
       ],
       child: const App(),

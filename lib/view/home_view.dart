@@ -1,11 +1,12 @@
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/view/Splash_view.dart';
+import 'package:apresentacao/view/list_view_films.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'list_viewapi.dart';
-import 'listuser_view.dart';
+import 'list_view_api.dart';
+import 'list_user_view.dart';
 import 'userview.dart';
 
 class HomeView extends StatefulWidget {
@@ -46,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
                 currentPage=page;
               },
               children: [
-                listviewApi(),
+                listviewfilms(),
                 listuserview(),
                 userview(),
               ],),
