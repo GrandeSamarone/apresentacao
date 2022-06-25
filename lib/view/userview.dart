@@ -33,7 +33,7 @@ class userview extends StatelessWidget {
             body:Column(
         children: [
         Text("Nome:${userdados["nome"]}"),
-        Text("Email:${userdados["email"]!}"),
+        Text("Email:${userdados["email"]}"),
         Text("Idade:${userdados["idade"].toString()}")
         ],
         ));

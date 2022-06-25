@@ -1,3 +1,4 @@
+import 'package:apresentacao/NavigationService.dart';
 import 'package:apresentacao/features/posts/bloc/post_bloc.dart';
 import 'package:apresentacao/view/Splash_view.dart';
 import 'package:http/http.dart' as http;
@@ -47,6 +48,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService.navigatorKeyGlobal,
         home: Splash_View(),
         theme: ThemeData(
           primarySwatch: Colors.red,

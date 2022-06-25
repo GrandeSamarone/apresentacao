@@ -15,8 +15,8 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
   final DatabaseRepository _databaseRepository;
   FormBloc(this._authenticationRepository, this._databaseRepository)
       : super(const FormsValidate(
-            email: "",
-           // email: "example@gmail.com",
+           // email: "",
+            email: "example@gmail.com",
             senha: "",
             isEmailValid: true,
             isPasswordValid: true,
