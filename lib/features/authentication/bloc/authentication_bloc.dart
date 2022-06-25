@@ -20,7 +20,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
        /// verificando se realmente autenticou
         if (user.uid != "uid") {
-
           Map<String,dynamic> displayDados = await _authenticationRepository.retrieveUser(user);
           emit(AuthenticationSuccess(dados:displayDados));
         } else {

@@ -4,19 +4,15 @@ import 'package:apresentacao/features/authentication/bloc/authentication_event.d
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
 import 'package:apresentacao/view/home_view.dart';
-import 'package:apresentacao/welcome_view.dart';
+import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-OutlineInputBorder border = const OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xFFEFEFEF), width: 3.0));
 
 class SignUpView extends StatelessWidget {
   const SignUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MultiBlocListener(
         listeners: [
           BlocListener<FormBloc, FormsValidate>(
@@ -46,30 +42,28 @@ class SignUpView extends StatelessWidget {
           ),
         ],
         child: Scaffold(
-            backgroundColor: Color(0xFFFFFFFF),
             body: Center(
               child: SingleChildScrollView(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Cadastre-se abaixo!",
+                    children:const [
+                       Text("Cadastre-se abaixo!",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color:Color(0xFF000000),
+                            color:Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 30.0,
                           )),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: size.height * 0.02)),
-                      const _EmailField(),
-                      SizedBox(height: size.height * 0.01),
-                      const _PasswordField(),
-                      SizedBox(height: size.height * 0.01),
-                      const _DisplayNameField(),
-                      SizedBox(height: size.height * 0.01),
-                      const _AgeField(),
-                      SizedBox(height: size.height * 0.01),
-                      const _SubmitButton()
+                         Padding(padding: EdgeInsets.only(bottom:8)),
+                       _EmailField(),
+                       SizedBox(height:8),
+                       _PasswordField(),
+                       SizedBox(height:8),
+                       _DisplayNameField(),
+                       SizedBox(height:8),
+                       _AgeField(),
+                       SizedBox(height:8),
+                       _SubmitButton()
                     ]),
               ),
             )));
@@ -81,26 +75,33 @@ class _EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return SizedBox(
-          width: size.width * 0.8,
+          width:280,
           child: TextFormField(
               onChanged: (value) {
                 context.read<FormBloc>().add(EmailChanged(value));
               },
+              style:const TextStyle(
+                color:Colors.white,
+                fontSize: 14.0,
+                fontFamily: "Brand-Regular",),
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
+              decoration:const InputDecoration(
                 labelText: 'Email',
-                helperText: 'Um e-mail completo e válido, por exemplo joe@gmail.com',
-                errorText: !state.isEmailValid
-                    ? 'Verifique se o e-mail inserido é válido'
-                    : null,
-                hintText: 'Email',
-                contentPadding: const EdgeInsets.symmetric(
+                labelStyle: TextStyle(color: Colors.grey),
+                helperStyle: TextStyle(color: Colors.grey),
+                errorStyle:  TextStyle(color: Colors.red),
+                hintStyle:  TextStyle(color: Colors.grey),
+                contentPadding:  EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 10.0),
-                border: border,
+                enabledBorder:  OutlineInputBorder(
+                  borderSide:  BorderSide(color: Colors.white, width: 0.0),
+                ),
+                border:  OutlineInputBorder(
+              borderSide: BorderSide(color:  Colors.white, width: 3.0))
+        ,
               )),
         );
       },
@@ -113,17 +114,28 @@ class _PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return SizedBox(
-          width: size.width * 0.8,
+          width: 280,
           child: TextFormField(
+            style:const TextStyle(
+              color:Colors.white,
+              fontSize: 14.0,
+              fontFamily: "Brand-Regular",),
             obscureText: true,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-              border: border,
+                enabledBorder: const OutlineInputBorder(
+                  borderSide:  BorderSide(color: Colors.white, width: 0.0),
+                ),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color:  Colors.white, width: 3.0)),
+              labelStyle:const TextStyle(color: Colors.grey),
+              errorStyle: const TextStyle(color: Colors.red),
+              hintStyle: const TextStyle(color: Colors.grey),
+              helperStyle: const TextStyle(color: Colors.grey),
               helperText:
                   '''A senha deve ter pelo menos 8 caracteres com pelo menos uma letra e um número''',
               helperMaxLines: 2,
@@ -148,16 +160,27 @@ class _DisplayNameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return SizedBox(
-          width: size.width * 0.8,
+          width: 280,
           child: TextFormField(
+            style:const TextStyle(
+              color:Colors.white,
+              fontSize: 14.0,
+              fontFamily: "Brand-Regular",),
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-              border: border,
+              enabledBorder: const OutlineInputBorder(
+                borderSide:  BorderSide(color: Colors.white, width: 0.0),
+              ),
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color:  Colors.white, width: 3.0)),
+              labelStyle:const TextStyle(color: Colors.grey),
+              errorStyle: const TextStyle(color: Colors.red),
+              hintStyle: const TextStyle(color: Colors.grey),
+              helperStyle: const TextStyle(color: Colors.grey),
               helperText: '''O nome deve ser válido!''',
               helperMaxLines: 2,
               labelText: 'Nome',
@@ -180,17 +203,28 @@ class _AgeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return SizedBox(
-          width: size.width * 0.8,
+          width:280,
           child: TextFormField(
+            style:const TextStyle(
+              color:Colors.white,
+              fontSize: 14.0,
+              fontFamily: "Brand-Regular",),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-              border: border,
+              enabledBorder: const OutlineInputBorder(
+                borderSide:  BorderSide(color: Colors.white, width: 0.0),
+              ),
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color:  Colors.white, width: 3.0)),
+              labelStyle:const TextStyle(color: Colors.grey),
+              errorStyle: const TextStyle(color: Colors.red),
+              hintStyle: const TextStyle(color: Colors.grey),
+              helperStyle: const TextStyle(color: Colors.grey),
               helperText: 'A idade deve ser válida, por exemplo. entre 1 - 120',
               helperMaxLines: 1,
               labelText: 'Idade',
@@ -214,19 +248,18 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return state.isLoading
             ?  Center(child: CircularProgressIndicator())
             : SizedBox(
-                width: size.width * 0.8,
+                width:280,
                 child: ElevatedButton(
                   onPressed: !state.isFormValid
                       ? () => context
                       .read<FormBloc>().add(const FormSubmitted(value: Status.signUp))
                       : null,
-                  child: const Text("Increver-se"),
+                  child: const Text("Inscrevar-se"),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black,
                     shadowColor: Colors.transparent,
@@ -258,7 +291,7 @@ class ErrorDialog extends StatelessWidget {
           child: const Text("Ok"),
           onPressed: () => errorMessage!.contains("Por favor, verifique seu e-mail")
               ? Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const Welcome_view()),
+                  MaterialPageRoute(builder: (context) => const SignInView()),
                   (Route<dynamic> route) => false)
               : Navigator.of(context).pop(),
         )

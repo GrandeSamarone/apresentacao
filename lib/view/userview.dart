@@ -1,10 +1,5 @@
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
-import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
-import 'package:apresentacao/features/database/bloc/database_bloc.dart';
-import 'package:apresentacao/features/database/bloc/database_event.dart';
-import 'package:apresentacao/features/database/bloc/database_state.dart';
-import 'package:apresentacao/welcome_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

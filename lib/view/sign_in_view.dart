@@ -1,26 +1,23 @@
 
+import 'dart:ui';
+
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
-import 'package:apresentacao/features/form-validation/sign_up_view.dart';
+import 'package:apresentacao/view/Splash_view.dart';
 import 'package:apresentacao/view/home_view.dart';
-import 'package:flutter/gestures.dart';
+import 'package:apresentacao/view/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-OutlineInputBorder border = const OutlineInputBorder(
-    borderSide: BorderSide(color:  Color(0xFFEFEFEF), width: 3.0));
 
 class SignInView extends StatelessWidget {
   const SignInView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    Size size = MediaQuery.of(context).size;
-
     return MultiBlocListener(
       listeners: [
         BlocListener<FormBloc, FormsValidate>(
@@ -40,9 +37,10 @@ class SignInView extends StatelessWidget {
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
+            ///se o usuario autenticar ele envia para a splash screen
             if (state is AuthenticationSuccess) {
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomeView()),
+                  MaterialPageRoute(builder: (context) => Splash_View()),
                   (Route<dynamic> route) => false);
             }
           },
@@ -53,32 +51,32 @@ class SignInView extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),
-          backgroundColor: const Color(0xFFFFFFFF),
           body: Center(
               child: SingleChildScrollView(
             child:
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-              Image.asset("imagens/sign.png",width: size.width*0.4,),
+              Image.asset("imagens/iconlogin.png",width:100,),
+
                    const Text(
                         "Login",
                         style: TextStyle(
-                          color: Color(0xFF000000),
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 30.0,
                         )),
 
-              SizedBox(height: size.height * 0.01),
+                      const SizedBox(height:30),
 
               const Text("+ de 2 Milhões de usuário!",
-                style: TextStyle(color:Colors.black54),),
+                style: TextStyle(color:Colors.grey),),
 
-              Padding(padding: EdgeInsets.only(bottom: size.height * 0.02)),
+              const   Padding(padding: EdgeInsets.only(bottom:8)),
               const _EmailField(),
-              SizedBox(height: size.height * 0.01),
+             const SizedBox(height:8),
               const _PasswordField(),
-              SizedBox(height: size.height * 0.01),
+                      const SizedBox(height: 8),
               const _SubmitButton(),
               const _SignInNavigate(),
             ]),
@@ -92,26 +90,39 @@ class _EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return Container(
-          width: size.width * 0.8,
+          width:280,
           child: TextFormField(
               onChanged: (value) {
                 context.read<FormBloc>().add(EmailChanged(value));
               },
+              style:const TextStyle(
+                color:Colors.white,
+                fontSize: 14.0,
+                fontFamily: "Brand-Regular",),
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
+                icon:const Icon(Icons.person,color: Colors.white,),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide:  BorderSide(color: Colors.white, width: 0.0),
+                ),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFEFEFEF), width: 3.0)),
                 labelText: 'Email',
+                labelStyle:const TextStyle(color: Colors.grey),
                 helperText: 'complete o email ex:joe@gmail.com',
+                helperStyle: const TextStyle(color: Colors.grey),
                 errorText: !state.isEmailValid
                     ? 'Por favor inserir um email valido'
                     : null,
+                errorStyle: const TextStyle(color: Colors.red),
                 hintText: 'Email',
+                hintStyle: const TextStyle(color: Colors.grey),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 10.0),
-                border: border,
+
               )),
         );
       },
@@ -124,24 +135,36 @@ class _PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return Container(
-          width: size.width * 0.8,
+          width:280,
           child: TextFormField(
+            style:const TextStyle(
+              color:Colors.white,
+              fontSize: 14.0,
+              fontFamily: "Brand-Regular",),
             obscureText: true,
             decoration: InputDecoration(
+              icon:const Icon(Icons.password,color: Colors.white,),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-              border: border,
+              enabledBorder: const OutlineInputBorder(
+                borderSide:  BorderSide(color: Colors.white, width: 0.0),
+              ),
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color:Colors.white, width: 3.0)),
               helperText: '''A senha deve ter pelo menos 8 caracteres com pelo menos uma letra e um número''',
+              helperStyle: const TextStyle(color: Colors.grey),
               helperMaxLines: 2,
               labelText: 'Senha',
+              labelStyle:const TextStyle(color: Colors.grey),
               errorMaxLines: 2,
               errorText: !state.isPasswordValid
                   ? '''A senha deve ter pelo menos 8 caracteres com pelo menos uma letra e um número'''
                   : null,
+              errorStyle: const TextStyle(color: Colors.red),
             ),
             onChanged: (value) {
               context.read<FormBloc>().add(PasswordChanged(value));
@@ -158,13 +181,12 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
         return state.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Container(
-                width: size.width * 0.8,
+                    width:280,
                 child: ElevatedButton(
                   onPressed: !state.isFormValid
                       ? () => context
@@ -200,7 +222,7 @@ class _SignInNavigate extends StatelessWidget {
               const Text(
                 "Não tem uma conta?",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontFamily: "Brand-Regular",
                   fontWeight: FontWeight.w100,
                 ),

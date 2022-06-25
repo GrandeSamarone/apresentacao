@@ -13,7 +13,7 @@ class AuthenticationService {
       if (user != null) {
         return UserModel(uid: user.uid, email: user.email);
       } else {
-        return  UserModel(uid: "uid");
+        return  UserModel(uid:"uid");
       }
     });
   }
