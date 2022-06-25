@@ -1,5 +1,5 @@
 
-import 'package:apresentacao/features/movies/movie_model.dart';
+import 'package:apresentacao/models/movie_model.dart';
 import 'package:dio/dio.dart';
 
 class MovieRepository {
@@ -18,6 +18,12 @@ class MovieRepository {
         response.data['results'].map<MovieModel>(
           (json) => MovieModel(
             title: json['title'],
+            description: json['original_title'],
+            original_language: json['original_language'],
+            popularity: json['popularity'],
+           date: json['release_date'],
+            vote_average:json['vote_average'],
+            vote_count:json['vote_count'],
             urlImage: 'https://image.tmdb.org/t/p/w185${json['poster_path']}',
           ),
         ),

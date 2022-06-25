@@ -64,14 +64,14 @@ class _HomeViewState extends State<HomeView> {
                     },
                     items: const [
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.list),
-                          label: "Lista itens"),
+                          icon: Icon(Icons.favorite_outline),
+                          label: "Filmes"),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.favorite),
-                          label: "Lista usuarios"),
+                          icon: Icon(Icons.book),
+                          label: "Notícias"),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.house_rounded),
-                          label: "usuario"),
+                          icon: Icon(Icons.perm_identity_rounded),
+                          label: "Meus Dados"),
                     ],
                   )
 
