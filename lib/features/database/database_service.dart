@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:apresentacao/models/news.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -11,8 +12,12 @@ class DatabaseService {
     addUdserData(UserModel userData) async {
     await _db.collection("Users").doc(userData.uid).set(userData.toMap());
   }
+  ///adicionando no firebase
+    addNewsData(News newData) async {
+    await _db.collection("News").doc("sdoksdoskdosd").set(newData.toMap());
+  }
 
-  ///resgatando a list de usuarios do firestore
+  ///resgatando a list de noticias do firestore
     Future<List<UserModel>> retrieveUserData() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("Users").get();

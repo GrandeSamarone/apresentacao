@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 part 'form_event.dart';
 part 'form_state.dart';
 
+
 class FormBloc extends Bloc<FormEvent, FormsValidate> {
   final AuthenticationService _authenticationRepository;
   final DatabaseService _databaseRepository;

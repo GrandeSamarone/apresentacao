@@ -4,7 +4,7 @@ import 'package:apresentacao/features/database/bloc/database_bloc.dart';
 import 'package:apresentacao/features/database/bloc/database_event.dart';
 import 'package:apresentacao/features/database/bloc/database_state.dart';
 import 'package:apresentacao/features/widget/itensNews.dart';
-import 'package:apresentacao/view/nova_news_view.dart';
+import 'package:apresentacao/view/NovaNewsView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -51,44 +51,11 @@ class _userviewState extends State<userview> {
               child: Column(
            mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          InkWell(
-            child: CircleAvatar(
+           CircleAvatar(
                       radius: 100,
                       backgroundColor: Colors.grey,
                       backgroundImage:(userdados["foto"]!=null)? NetworkImage(userdados["foto"]):NetworkImage(urlImg),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 190,
-                        decoration: BoxDecoration(
-                            color: Colors.grey
-                                .withOpacity(0.4),
-                            borderRadius: const BorderRadius
-                                .all(Radius.circular(100))
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "alterar"
-                                , style:
-                              TextStyle(
-                                  fontFamily: "Brand-Regular",
-                                  color: Colors.white,
-                                  fontSize: 16
-                              ),
-                              ),
-                              Icon(Icons.camera_alt
-                                , color: Colors.white,)
-                            ]
-                        ),
-                      ),
                     ),
-
-
-            onTap: (){}
-            //onTap: (){upload_bloc.usersink.add(BlocEvent.UploadEvent);}
-
-          ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

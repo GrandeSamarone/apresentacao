@@ -1,5 +1,4 @@
 import 'package:apresentacao/features/NavigationService.dart';
-import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
 import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_cubit.dart';
@@ -15,6 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/noticias/bloc/not_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +31,9 @@ void main() async {
         BlocProvider(
           create: (context) => FormBloc(
               AuthenticationService(), DatabaseService()),
+        ),
+        BlocProvider(
+          create: (context) => NotBloc(DatabaseService()),
         ),
         BlocProvider(
           create: (context) => DatabaseBloc(DatabaseService()),
