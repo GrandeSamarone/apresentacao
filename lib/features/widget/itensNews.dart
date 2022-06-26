@@ -5,6 +5,7 @@ import 'package:apresentacao/models/movie_model.dart';
 import 'package:apresentacao/models/news.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:apresentacao/view/details_films_view.dart';
+import 'package:apresentacao/view/details_news_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,19 +18,19 @@ class ItemNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) =>Details(film_details: films,)),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>DetailsNews(news_details: news,)),
+        );
       },
       child: Material(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Column(
             children: [
               Container(
-                width: double.infinity,
-                height: 200,
+                width: 300,
+                height: 180,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15.0),
                   child: FadeInImage.assetNetwork(
