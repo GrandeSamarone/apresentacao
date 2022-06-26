@@ -3,12 +3,13 @@ import 'package:apresentacao/models/news.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:short_uuids/short_uuids.dart';
 
 part'not_event.dart';
 part'not_state.dart';
 
 class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
-
+  var short = ShortUuid();
   final DatabaseService _databaseRepository;
   NotBloc( this._databaseRepository)
       : super(const FormsNotValidate(
@@ -27,21 +28,14 @@ class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
     on<FormNotSubmitted>(_onFormNotSubmitted);
     on<FormNotSucceeded>(_onFormNotSucceeded);
   }
-  final RegExp _tituloRegExp = RegExp(
-    r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
-  );
-  final RegExp _descRegExp = RegExp(
-    r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
-  );
-
-  ///verificando se nao tem dados invalido no email
+  ///verificando se nao tem dados invalido do titulo
   bool _isTituloValid(String titulo) {
-    return _tituloRegExp.hasMatch(titulo);
+    return titulo.isNotEmpty;
   }
 
-  ///verificando se nao tem dados invalido na senha
+  ///verificando se nao tem dados invalido da descrição
   bool _isDescValid(String descricao) {
-    return _descRegExp.hasMatch(descricao);
+    return descricao.isNotEmpty;
   }
 
   ///verificando se o link da imagem é vazio
@@ -89,18 +83,19 @@ class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
   ///recebe os dados e verifica se é um login ou um cadastro
   _onFormNotSubmitted(FormNotSubmitted event, Emitter<FormsNotValidate> emit) async {
     News user = News(
+       uid: short.generate(),
         titulo: state.titulo,
         desc: state.descricao,
         foto: state.foto
     );
 
     if (event.value == StatusNew.cadastro) {
-      await _updateUIAndSignUp(event, emit, user);
+      await _updateUIAndNew(event, emit, user);
     }
   }
 
   ///cadastro
-  _updateUIAndSignUp(FormNotSubmitted event, Emitter<FormsNotValidate> emit, News noticias) async {
+  _updateUIAndNew(FormNotSubmitted event, Emitter<FormsNotValidate> emit, News noticias) async {
     emit(state.copyWith(errorMessageNot: "",
         isFormNotValid:
             _isTituloValid(state.titulo) &&

@@ -14,7 +14,7 @@ class DatabaseService {
   }
   ///adicionando no firebase
     addNewsData(News newData) async {
-    await _db.collection("News").doc("sdoksdoskdosd").set(newData.toMap());
+    await _db.collection("News").doc(newData.uid).set(newData.toMap());
   }
 
   ///resgatando a list de noticias do firestore

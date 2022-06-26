@@ -9,6 +9,7 @@ class News {
 
   Map<String, dynamic> toMap() {
     return {
+      'uid':uid,
       'foto': foto,
       'titulo': titulo,
       'desc': desc,
