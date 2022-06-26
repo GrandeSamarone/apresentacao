@@ -1,14 +1,16 @@
 
+import 'dart:ui';
+
 import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
-import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
-import 'package:apresentacao/features/upload_img/upload_img_bloc.dart';
 import 'package:apresentacao/view/home_view.dart';
 import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({Key? key}) : super(key: key);
@@ -79,50 +81,121 @@ class _ImgFieldState extends State<_ImgField> {
 
   @override
   Widget build(BuildContext context) {
-        return StreamBuilder<String>(
+        return StreamBuilder<Upload_img_state>(
           stream: uploadBLoc.userStream,
           builder: (context, snapshot) {
-            print("OASKDSODKSODKSODK:::");
-            print(snapshot.data);
-            return InkWell(
-                child: CircleAvatar(
-                  radius:40,
-                  backgroundColor: Colors.grey,
-                  backgroundImage:(snapshot.data!=null)? NetworkImage(snapshot.data!):NetworkImage(urlImg),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 90,
-                    decoration: BoxDecoration(
-                        color: Colors.grey
-                            .withOpacity(0.4),
-                        borderRadius: const BorderRadius
-                            .all(Radius.circular(100))
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "alterar"
-                            , style:
-                          TextStyle(
-                              fontFamily: "Brand-Regular",
-                              color: Colors.white,
-                              fontSize: 16
-                          ),
-                          ),
-                          Icon(Icons.camera_alt
-                            , color: Colors.white,)
-                        ]
+            final state = snapshot.data;
+          print("OASKDSODKSODKSODK:::");
+          print(snapshot.data);
+          print(state);
+            if(!snapshot.hasData){
+              return InkWell(
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.grey,
+                    backgroundImage:  NetworkImage(urlImg),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 90,
+                      decoration: BoxDecoration(
+                          color: Colors.grey
+                              .withOpacity(0.4),
+                          borderRadius: const BorderRadius
+                              .all(Radius.circular(100))
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "alterar"
+                              , style:
+                            TextStyle(
+                                fontFamily: "Brand-Regular",
+                                color: Colors.white,
+                                fontSize: 16
+                            ),
+                            ),
+                            Icon(Icons.camera_alt
+                              , color: Colors.white,)
+                          ]
+                      ),
                     ),
                   ),
+                  onTap: () {
+                    ClickImg();
+                  }
+              );
+            }
+            if (state is upload_Error) {
+              return Text("Error",style: TextStyle(color: Colors.red,fontSize: 20),);
+              // return const Expanded(
+              //   child: Center(child: CircularProgressIndicator(),),);
+            }
+          if (state is upload_Loading) {
+            return Text("Carregando...",style: TextStyle(color: Colors.white,fontSize: 20),);
+            // return const Expanded(
+            //   child: Center(child: CircularProgressIndicator(),),);
+          }
+          final linkdata=state as upload_sucess;
+          print("linkdata::::");
+          print(linkdata);
+          return InkWell(
+              child: CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.grey,
+                backgroundImage: (snapshot.data != null) ? NetworkImage(
+                    linkdata.link) : NetworkImage(urlImg),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 90,
+                  decoration: BoxDecoration(
+                      color: Colors.grey
+                          .withOpacity(0.4),
+                      borderRadius: const BorderRadius
+                          .all(Radius.circular(100))
+                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "alterar"
+                          , style:
+                        TextStyle(
+                            fontFamily: "Brand-Regular",
+                            color: Colors.white,
+                            fontSize: 16
+                        ),
+                        ),
+                        Icon(Icons.camera_alt
+                          , color: Colors.white,)
+                      ]
+                  ),
                 ),
-                onTap: (){
-                  uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
-                }
-            );
+              ),
+              onTap: () {
+               // uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
+                ClickImg();
+              }
+          );
           }
         );
 
+  }
+
+  ClickImg()async{
+    final image_picker = ImagePicker();
+    await Permission.photos.request();
+
+    var CheckValidPermission = await Permission.photos.status;
+    if(CheckValidPermission.isGranted){
+     var file=(await image_picker.pickImage(
+      source: ImageSource.gallery, imageQuality: 100, maxWidth: 400));
+     if(file!=null){
+       uploadBLoc.usersink.add(file);
+      // uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
+      // searchcepbloc.searchcep.add("");
+     }
+  }
   }
 }
 class _EmailField extends StatelessWidget {

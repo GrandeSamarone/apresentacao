@@ -3,7 +3,6 @@ import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_cubit.dart';
 import 'package:apresentacao/features/movies/movie_repository.dart';
-import 'package:apresentacao/features/upload_img/upload_img_bloc.dart';
 import 'package:apresentacao/view/Splash_view.dart';
 import 'package:dio/dio.dart';
 import 'package:apresentacao/AppBlocObserver.dart';
@@ -43,7 +42,6 @@ void main() async {
             ),
           ),
         ),
-        BlocProvider(create: (context)=>UploadImgBloc())
       ],
       child: const App(),
     )),

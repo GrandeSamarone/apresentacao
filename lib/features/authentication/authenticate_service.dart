@@ -1,8 +1,12 @@
 
 
+import 'dart:io';
+
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:short_uuids/short_uuids.dart';
 
 class AuthenticationService {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -41,8 +45,6 @@ class AuthenticationService {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }
   }
-
-
   @override
   Future<Map<String,dynamic>> retrieveUser(UserModel user) {
     return dbService.retrieveUser(user);
