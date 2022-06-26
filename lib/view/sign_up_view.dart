@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
+import 'package:apresentacao/features/UploadImgBloc/Upload_img_state.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
@@ -75,7 +76,8 @@ class _ImgField extends StatefulWidget {
 }
 
 class _ImgFieldState extends State<_ImgField> {
-  var uploadBLoc=UploadBloc();
+
+  final uploadBLoc=UploadBloc();
 
   String urlImg='https://firebasestorage.googleapis.com/v0/b/apresentacao-a6686.appspot.com/o/user_icon.png?alt=media&token=7a3642be-350e-4b52-b833-7c59c0254297';
 
@@ -132,13 +134,10 @@ class _ImgFieldState extends State<_ImgField> {
               //   child: Center(child: CircularProgressIndicator(),),);
             }
           if (state is upload_Loading) {
-            return Text("Carregando...",style: TextStyle(color: Colors.white,fontSize: 20),);
-            // return const Expanded(
-            //   child: Center(child: CircularProgressIndicator(),),);
+            return  CircularProgressIndicator();
           }
           final linkdata=state as upload_sucess;
-          print("linkdata::::");
-          print(linkdata);
+            context.read<FormBloc>().add(FotoChanged(linkdata.link));
           return InkWell(
               child: CircleAvatar(
                 radius: 40,
@@ -173,7 +172,6 @@ class _ImgFieldState extends State<_ImgField> {
                 ),
               ),
               onTap: () {
-               // uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
                 ClickImg();
               }
           );
@@ -192,8 +190,6 @@ class _ImgFieldState extends State<_ImgField> {
       source: ImageSource.gallery, imageQuality: 100, maxWidth: 400));
      if(file!=null){
        uploadBLoc.usersink.add(file);
-      // uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
-      // searchcepbloc.searchcep.add("");
      }
   }
   }

@@ -1,4 +1,5 @@
 import 'package:apresentacao/features/NavigationService.dart';
+import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
 import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_cubit.dart';
@@ -31,7 +32,6 @@ void main() async {
           create: (context) => FormBloc(
               AuthenticationService(), DatabaseService()),
         ),
-
         BlocProvider(
           create: (context) => DatabaseBloc(DatabaseService()),
         ) ,

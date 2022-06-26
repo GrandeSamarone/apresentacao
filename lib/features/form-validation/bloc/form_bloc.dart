@@ -57,7 +57,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
     return displayName!.isNotEmpty;
   }
   ///verificando se o link da imagem é vazio
-  bool _isFotoChanged(String? link) {
+  bool _isFotoValid(String? link) {
     return link!.isNotEmpty;
   }
 
@@ -107,7 +107,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
       isFormValidateFailed: false,
       errorMessage: "",
       foto: event.link,
-      isFotoValid: _isFotoChanged(event.link),
+      isFotoValid: _isFotoValid(event.link),
     ));
   }
 
@@ -147,7 +147,8 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
         isFormValid: _isPasswordValid(state.senha) &&
             _isEmailValid(state.email) &&
             _isAgeValid(state.idade) &&
-            _isNameValid(state.nome),
+            _isNameValid(state.nome)&&
+            _isFotoValid(state.foto),
         isLoading: true));
     if (state.isFormValid) {
       try {
