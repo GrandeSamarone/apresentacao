@@ -23,7 +23,7 @@ class UserModel {
         email = doc.data()!["email"],
         idade = doc.data()!["idade"],
         nome = doc.data()!["nome"],
-         foto = doc.data()!["foto"];
+        foto = doc.data()!["foto"];
 
 
   UserModel copyWith({

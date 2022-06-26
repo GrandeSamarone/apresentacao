@@ -1,6 +1,5 @@
 import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
-
-import 'package:apresentacao/features/database/database_repository_impl.dart';
+import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/models/user_model.dart';
 
 import 'package:bloc/bloc.dart';
@@ -12,7 +11,7 @@ part 'form_state.dart';
 
 class FormBloc extends Bloc<FormEvent, FormsValidate> {
   final AuthenticationRepository _authenticationRepository;
-  final DatabaseRepository _databaseRepository;
+  final DatabaseService _databaseRepository;
   FormBloc(this._authenticationRepository, this._databaseRepository)
       : super(const FormsValidate(
            // email: "",
@@ -138,7 +137,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
 
         UserCredential? authUser = await _authenticationRepository.signUp(user);
         UserModel updatedUser = user.copyWith(uid: authUser!.user!.uid,);
-        await _databaseRepository.saveUserData(updatedUser);
+        await _databaseRepository.addUdserData(updatedUser);
           emit(state.copyWith(isLoading: false, errorMessage: ""));
 
       } on FirebaseAuthException catch (e) {

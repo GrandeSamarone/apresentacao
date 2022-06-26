@@ -3,16 +3,18 @@ import 'package:apresentacao/features/authentication/bloc/authentication_state.d
 import 'package:apresentacao/features/database/bloc/database_bloc.dart';
 import 'package:apresentacao/features/database/bloc/database_event.dart';
 import 'package:apresentacao/features/database/bloc/database_state.dart';
+import 'package:apresentacao/features/widget/itensNews.dart';
+import 'package:apresentacao/view/nova_news_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class listuserview extends StatelessWidget {
+class listnewsview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-              title:const Center(child:Text("Usuarios Banco de Dados")),
+              title:const Center(child:Text("Notícias")),
             ),
             body: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (context, state) {
@@ -37,16 +39,7 @@ class listuserview extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: state.listOfUserData.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            child: ListTile(
-                              title: Text(
-                                  state.listOfUserData[index].nome!),
-                              subtitle:
-                              Text(state.listOfUserData[index].email!),
-                              trailing: Text(
-                                  state.listOfUserData[index].idade!.toString()),
-                            ),
-                          );
+                          return ItemNews(user:state.listOfUserData[index]);
                         },
                       ),
                     );
@@ -55,6 +48,18 @@ class listuserview extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
               },
-            ));
+            ),
+          floatingActionButton: FloatingActionButton(
+          onPressed:(){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>NovaNewsView()),
+            );
+
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
+        );
   }
 }

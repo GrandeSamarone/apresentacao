@@ -12,18 +12,15 @@ UploadEvent
 
 class UploadBloc{
 
-  final userSteamController =StreamController<String>();
+  final userSteamController =StreamController();
 
-  StreamSink<String> get usersink => userSteamController.sink;
-  Stream<String> get userStream => userSteamController.stream;
+  Sink get usersink => userSteamController.sink;
+  Stream get userStream => userSteamController.stream;
   
   final eventStreamController = StreamController<BlocEvent>();
 
-  StreamSink<BlocEvent> get inputEvent => eventStreamController.sink;
-  Stream<BlocEvent> get outputEvent => eventStreamController.stream;
-
   UploadBloc(){
-    outputEvent.listen((event)async {
+    userStream.listen((event)async {
       if(event == BlocEvent.UploadEvent){
        final image_picker = ImagePicker();
 
@@ -61,7 +58,7 @@ class UploadBloc{
              task.then((TaskSnapshot taskSnapshot) async {
                String url = await taskSnapshot.ref.getDownloadURL();
                Map<String, dynamic> dadosAtualizar = {"foto": url};
-               usersink.add(url);
+               //usersink.add(url);
 
                FirebaseFirestore.instance
                    .collection("Users")

@@ -23,24 +23,16 @@ class Splash_View extends StatelessWidget{
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         Future.delayed( const Duration(milliseconds: 3000), () async {
-          print("time");
-          print(state);
+
            if (state is AuthenticationSuccess) {
-             print("HomeView");
              Navigator.of(NavigationService.navigatorKeyGlobal.currentContext!)
                  .pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                  HomeView()), (Route<dynamic> route) => false);
 
-        } else {
-             print("SignInView");
-             Navigator.of(NavigationService.navigatorKeyGlobal.currentContext!).push(
-               PageRouteBuilder(
-                   transitionDuration: const Duration(milliseconds: 1500),
-                   maintainState: true,
-                   pageBuilder: (c, a1, a2) {
-                     return const SignInView();
-                   }),
-             );
+        } else if (state is AuthenticationFailure){
+             Navigator.of(NavigationService.navigatorKeyGlobal.currentContext!)
+                 .pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                 SignInView()), (Route<dynamic> route) => false);
         }
         });
         return  Scaffold(

@@ -53,7 +53,6 @@ class _userviewState extends State<userview> {
         children: [
           InkWell(
             child: CircleAvatar(
-
                       radius: 100,
                       backgroundColor: Colors.grey,
                       backgroundImage:(userdados["foto"]!=null)? NetworkImage(userdados["foto"]):NetworkImage(urlImg),
@@ -86,7 +85,7 @@ class _userviewState extends State<userview> {
                     ),
 
 
-            onTap: (){upload_bloc.inputEvent.add(BlocEvent.UploadEvent);}
+            onTap: (){upload_bloc.usersink.add(BlocEvent.UploadEvent);}
 
           ),
         Row(
