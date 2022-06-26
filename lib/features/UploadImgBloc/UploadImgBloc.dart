@@ -5,22 +5,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:short_uuids/short_uuids.dart';
 
 enum BlocEvent{
 UploadEvent
 }
 
 class UploadBloc{
+  var short = ShortUuid();
+  final userSteamController =StreamController<String>.broadcast();
 
-  final userSteamController =StreamController.broadcast();
-
-  Sink get usersink => userSteamController.sink;
-  Stream get userStream => userSteamController.stream;
+  StreamSink<String> get usersink => userSteamController.sink;
+  Stream<String>     get userStream => userSteamController.stream;
   
   final eventStreamController = StreamController<BlocEvent>();
 
+  StreamSink<BlocEvent> get inputEvent => eventStreamController.sink;
+  Stream<BlocEvent>  get outputEvent => eventStreamController.stream;
+
   UploadBloc(){
-    userStream.listen((event)async {
+    outputEvent.listen((event)async {
       if(event == BlocEvent.UploadEvent){
        final image_picker = ImagePicker();
 
@@ -37,11 +41,10 @@ class UploadBloc{
 
            if (file != null) {
              var _imagem = File(file.path);
-
              FirebaseStorage storage = FirebaseStorage.instance;
              Reference pastaRaiz = storage.ref();
              Reference arquivo =
-             pastaRaiz.child("perfil").child("4TLQ7bAa3aMGEzweXDRlbFfMH6U2" + ".jpg");
+             pastaRaiz.child("perfil").child(short.generate()+ ".jpg");
 
              //Upload da imagem
              UploadTask task = arquivo.putFile(_imagem);

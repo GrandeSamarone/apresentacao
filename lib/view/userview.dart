@@ -85,7 +85,8 @@ class _userviewState extends State<userview> {
                     ),
 
 
-            onTap: (){upload_bloc.usersink.add(BlocEvent.UploadEvent);}
+            onTap: (){}
+            //onTap: (){upload_bloc.usersink.add(BlocEvent.UploadEvent);}
 
           ),
         Row(

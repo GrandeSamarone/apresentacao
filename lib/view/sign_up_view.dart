@@ -79,7 +79,7 @@ class _ImgFieldState extends State<_ImgField> {
 
   @override
   Widget build(BuildContext context) {
-        return StreamBuilder(
+        return StreamBuilder<String>(
           stream: uploadBLoc.userStream,
           builder: (context, snapshot) {
             print("OASKDSODKSODKSODK:::");
@@ -88,7 +88,7 @@ class _ImgFieldState extends State<_ImgField> {
                 child: CircleAvatar(
                   radius:40,
                   backgroundColor: Colors.grey,
-                  backgroundImage:(snapshot.data!=null)? NetworkImage(snapshot.data.toString()):NetworkImage(urlImg),
+                  backgroundImage:(snapshot.data!=null)? NetworkImage(snapshot.data!):NetworkImage(urlImg),
                   child: Container(
                     alignment: Alignment.center,
                     height: 90,
@@ -117,7 +117,7 @@ class _ImgFieldState extends State<_ImgField> {
                   ),
                 ),
                 onTap: (){
-                  uploadBLoc.usersink.add(BlocEvent.UploadEvent);
+                  uploadBLoc.inputEvent.add(BlocEvent.UploadEvent);
                 }
             );
           }
