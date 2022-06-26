@@ -22,11 +22,13 @@ class FormsValidate extends FormState {
       required this.isAgeValid,
       required this.isFormValidateFailed,
         required this.nome,
+        required this.foto,
       required this.idade,
       this.isFormSuccessful = false});
 
   final String email;
   final String nome;
+  final String foto;
   final int idade;
   final String senha;
   final bool isEmailValid;
@@ -43,6 +45,7 @@ class FormsValidate extends FormState {
       {String? email,
       String? senha,
       String? nome,
+      String? foto,
       bool? isEmailValid,
       bool? isPasswordValid,
       bool? isFormValid,
@@ -50,6 +53,7 @@ class FormsValidate extends FormState {
       int? idade,
       String? errorMessage,
       bool? isNameValid,
+      bool? isFotoValid,
       bool? isAgeValid,
       bool? isFormValidateFailed,
       bool? isFormSuccessful}) {
@@ -57,6 +61,7 @@ class FormsValidate extends FormState {
         email: email ?? this.email,
         senha: senha ?? this.senha,
         nome: nome ?? this.nome,
+        foto: foto ?? this.foto,
         isEmailValid: isEmailValid ?? this.isEmailValid,
         isPasswordValid: isPasswordValid ?? this.isPasswordValid,
         isFormValid: isFormValid ?? this.isFormValid,
@@ -74,6 +79,7 @@ class FormsValidate extends FormState {
         email,
         senha,
          nome,
+         foto,
          idade,
         isEmailValid,
         isPasswordValid,

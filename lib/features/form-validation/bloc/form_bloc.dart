@@ -17,6 +17,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
           email: "example@gmail.com",
             senha: "",
             nome: "",
+            foto: "",
             isEmailValid: true,
             isPasswordValid: true,
             isFormValid: false,
@@ -28,6 +29,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<NameChanged>(_onNameChanged);
+    on<FotoChanged>(_onFotoChanged);
     on<AgeChanged>(_onAgeChanged);
     on<FormSubmitted>(_onFormSubmitted);
     on<FormSucceeded>(_onFormSucceeded);
@@ -53,6 +55,10 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
   ///verificando se o nome é vazio
   bool _isNameValid(String? displayName) {
     return displayName!.isNotEmpty;
+  }
+  ///verificando se o link da imagem é vazio
+  bool _isFotoChanged(String? link) {
+    return link!.isNotEmpty;
   }
 
   ///verificando se a idade não é -1
@@ -94,6 +100,17 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
     ));
   }
 
+  ///recebendo o link
+  _onFotoChanged(FotoChanged event, Emitter<FormsValidate> emit) {
+    emit(state.copyWith(
+      isFormSuccessful: false,
+      isFormValidateFailed: false,
+      errorMessage: "",
+      foto: event.link,
+      isFotoValid: _isFotoChanged(event.link),
+    ));
+  }
+
   ///recebendo o idade
   _onAgeChanged(AgeChanged event, Emitter<FormsValidate> emit) {
     emit(state.copyWith(
@@ -112,7 +129,8 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
         email: state.email,
         senha: state.senha,
         idade: state.idade,
-        nome: state.nome
+        nome: state.nome,
+        foto: state.foto
     );
 
     if (event.value == Status.signUp) {

@@ -1,8 +1,10 @@
 
+import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
+import 'package:apresentacao/features/upload_img/upload_img_bloc.dart';
 import 'package:apresentacao/view/home_view.dart';
 import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,8 @@ class SignUpView extends StatelessWidget {
                             fontSize: 30.0,
                           )),
                          Padding(padding: EdgeInsets.only(bottom:8)),
+                      _ImgField(),
+                      SizedBox(height:16),
                        _EmailField(),
                        SizedBox(height:8),
                        _PasswordField(),
@@ -59,6 +63,68 @@ class SignUpView extends StatelessWidget {
   }
 }
 
+class _ImgField extends StatefulWidget {
+
+
+  const _ImgField({Key? key}) : super(key: key);
+
+  @override
+  State<_ImgField> createState() => _ImgFieldState();
+}
+
+class _ImgFieldState extends State<_ImgField> {
+  var uploadBLoc=UploadBloc();
+
+  String urlImg='https://firebasestorage.googleapis.com/v0/b/apresentacao-a6686.appspot.com/o/user_icon.png?alt=media&token=7a3642be-350e-4b52-b833-7c59c0254297';
+
+  @override
+  Widget build(BuildContext context) {
+        return StreamBuilder(
+          stream: uploadBLoc.userStream,
+          builder: (context, snapshot) {
+            print("OASKDSODKSODKSODK:::");
+            print(snapshot.data);
+            return InkWell(
+                child: CircleAvatar(
+                  radius:40,
+                  backgroundColor: Colors.grey,
+                  backgroundImage:(snapshot.data!=null)? NetworkImage(snapshot.data.toString()):NetworkImage(urlImg),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 90,
+                    decoration: BoxDecoration(
+                        color: Colors.grey
+                            .withOpacity(0.4),
+                        borderRadius: const BorderRadius
+                            .all(Radius.circular(100))
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "alterar"
+                            , style:
+                          TextStyle(
+                              fontFamily: "Brand-Regular",
+                              color: Colors.white,
+                              fontSize: 16
+                          ),
+                          ),
+                          Icon(Icons.camera_alt
+                            , color: Colors.white,)
+                        ]
+                    ),
+                  ),
+                ),
+                onTap: (){
+                  uploadBLoc.usersink.add(BlocEvent.UploadEvent);
+                }
+            );
+          }
+        );
+
+  }
+}
 class _EmailField extends StatelessWidget {
   const _EmailField({Key? key}) : super(key: key);
 

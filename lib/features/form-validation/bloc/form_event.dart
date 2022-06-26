@@ -33,6 +33,14 @@ class NameChanged extends FormEvent {
   List<Object> get props => [nome];
 }
 
+class FotoChanged extends FormEvent {
+  final String link;
+  const FotoChanged(this.link);
+
+  @override
+  List<Object> get props => [link];
+}
+
 class AgeChanged extends FormEvent {
   final int idade;
   const AgeChanged(this.idade);

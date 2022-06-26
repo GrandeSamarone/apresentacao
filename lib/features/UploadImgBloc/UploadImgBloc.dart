@@ -12,7 +12,7 @@ UploadEvent
 
 class UploadBloc{
 
-  final userSteamController =StreamController();
+  final userSteamController =StreamController.broadcast();
 
   Sink get usersink => userSteamController.sink;
   Stream get userStream => userSteamController.stream;
@@ -58,12 +58,12 @@ class UploadBloc{
              task.then((TaskSnapshot taskSnapshot) async {
                String url = await taskSnapshot.ref.getDownloadURL();
                Map<String, dynamic> dadosAtualizar = {"foto": url};
-               //usersink.add(url);
+               usersink.add(url);
 
-               FirebaseFirestore.instance
-                   .collection("Users")
-                   .doc("4TLQ7bAa3aMGEzweXDRlbFfMH6U2")
-                   .update(dadosAtualizar);
+               // FirebaseFirestore.instance
+               //     .collection("Users")
+               //     .doc("4TLQ7bAa3aMGEzweXDRlbFfMH6U2")
+               //     .update(dadosAtualizar);
 
                return "Carregada com sucesso!";
              });
