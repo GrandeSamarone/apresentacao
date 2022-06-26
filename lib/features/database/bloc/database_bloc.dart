@@ -1,6 +1,7 @@
 
 import 'package:apresentacao/features/database/bloc/database_event.dart';
 import 'package:apresentacao/features/database/bloc/database_state.dart';
+import 'package:apresentacao/models/news.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
 
   ///recebe a lista de usuarios e emit um sucesso com os dados
   _fetchUserData(DatabaseFetched event, Emitter<DatabaseState> emit) async {
-    List<UserModel>  listofUserData = await _databaseRepository.retrieveUserData();
-      emit(DatabaseSuccess(listofUserData,event.dados));
+    List<News>  listOfNew = await _databaseRepository.retrieveUserData();
+      emit(DatabaseSuccess(listOfNew,event.dados));
   }
 }

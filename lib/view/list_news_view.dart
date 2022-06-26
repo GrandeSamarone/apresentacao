@@ -20,9 +20,7 @@ class listnewsview extends StatelessWidget {
               builder: (context, state) {
                 Map<String,dynamic> displayDados = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados!;
                 if (state is DatabaseSuccess &&
-                    displayDados !=
-                        (context.read<DatabaseBloc>().state as DatabaseSuccess)
-                            .dados) {
+                    displayDados != (context.read<DatabaseBloc>().state as DatabaseSuccess).dados) {
                   context.read<DatabaseBloc>().add(DatabaseFetched(displayDados));
                 }
                 if (state is DatabaseInitial) {
@@ -30,16 +28,16 @@ class listnewsview extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 } else
                   if (state is DatabaseSuccess) {
-                  if (state.listOfUserData.isEmpty) {
+                  if (state.listOfNew.isEmpty) {
                     return const Center(
                       child: Text("Nenhum dado disponível!"),
                     );
                   } else {
                     return Center(
                       child: ListView.builder(
-                        itemCount: state.listOfUserData.length,
+                        itemCount: state.listOfNew.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ItemNews(user:state.listOfUserData[index]);
+                          return ItemNews(news:state.listOfNew[index]);
                         },
                       ),
                     );

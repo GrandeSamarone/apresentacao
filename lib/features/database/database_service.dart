@@ -18,10 +18,10 @@ class DatabaseService {
   }
 
   ///resgatando a list de noticias do firestore
-    Future<List<UserModel>> retrieveUserData() async {
+    Future<List<News>> retrieveUserData() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection("Users").get();
-    return snapshot.docs.map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot)).toList();
+        await _db.collection("News").get();
+    return snapshot.docs.map((docSnapshot) => News.fromDocumentSnapshot(docSnapshot)).toList();
     }
 
     ///resgatando os dados do usuario atual logado

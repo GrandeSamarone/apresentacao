@@ -1,4 +1,5 @@
- import 'package:apresentacao/models/user_model.dart';
+ import 'package:apresentacao/models/news.dart';
+import 'package:apresentacao/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 class DatabaseState extends Equatable {
@@ -11,14 +12,14 @@ class DatabaseState extends Equatable {
 class DatabaseInitial extends DatabaseState {}
 
 class DatabaseSuccess extends DatabaseState {
-  final List<UserModel> listOfUserData;
+  final List<News> listOfNew;
   final  Map<String,dynamic> dados;
 
   ///emitindo com sucesso
-  const DatabaseSuccess(this.listOfUserData,this.dados);
+  const DatabaseSuccess(this.listOfNew,this.dados);
 
     @override
-  List<Object?> get props => [listOfUserData,dados];
+  List<Object?> get props => [listOfNew,dados];
 }
 
 ///error
