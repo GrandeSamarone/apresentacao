@@ -1,13 +1,12 @@
-import 'package:apresentacao/NavigationService.dart';
+import 'package:apresentacao/features/NavigationService.dart';
+import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_cubit.dart';
 import 'package:apresentacao/features/movies/movie_repository.dart';
 import 'package:apresentacao/features/upload_img/upload_img_bloc.dart';
 import 'package:apresentacao/view/Splash_view.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 import 'package:apresentacao/AppBlocObserver.dart';
-import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/database/bloc/database_bloc.dart';
@@ -26,12 +25,12 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) =>
-          AuthenticationBloc(AuthenticationRepositoryImpl())
+          AuthenticationBloc(AuthenticationService())
             ..add(AuthenticationStarted()),
         ),
         BlocProvider(
           create: (context) => FormBloc(
-              AuthenticationRepositoryImpl(), DatabaseService()),
+              AuthenticationService(), DatabaseService()),
         ),
 
         BlocProvider(
@@ -58,8 +57,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-      navigatorKey: NavigationService.navigatorKeyGlobal,
         home: Splash_View(),
+        navigatorKey: NavigationService.navigatorKeyGlobal,
         theme: ThemeData(
           primarySwatch: Colors.red,
           scaffoldBackgroundColor: const Color(0xFF403939),

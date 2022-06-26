@@ -1,5 +1,5 @@
 
-import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
+import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/models/user_model.dart';
@@ -8,7 +8,7 @@ import 'package:bloc/bloc.dart';
 
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthenticationRepository _authenticationRepository;
+  final AuthenticationService _authenticationRepository;
 
   AuthenticationBloc(this._authenticationRepository)
       : super(AuthenticationInitial()) {
@@ -16,7 +16,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
       ///se o evento do usuarior for fazer o login
       if (event is AuthenticationStarted) {
-        UserModel user = await _authenticationRepository.getCurrentUser().first;
+        UserModel user = await _authenticationRepository.retrieveCurrentUser().first;
 
        /// verificando se realmente autenticou
         if (user.uid != "uid") {

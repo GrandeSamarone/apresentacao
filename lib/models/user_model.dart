@@ -13,7 +13,7 @@ class UserModel {
     return {
       'email': email,
       'nome': nome,
-      'nome': foto,
+      'foto': foto,
       'idade': idade,
     };
   }

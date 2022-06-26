@@ -1,4 +1,4 @@
-import 'package:apresentacao/features/authentication/authentication_repository_impl.dart';
+import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/models/user_model.dart';
 
@@ -10,13 +10,13 @@ part 'form_event.dart';
 part 'form_state.dart';
 
 class FormBloc extends Bloc<FormEvent, FormsValidate> {
-  final AuthenticationRepository _authenticationRepository;
+  final AuthenticationService _authenticationRepository;
   final DatabaseService _databaseRepository;
   FormBloc(this._authenticationRepository, this._databaseRepository)
       : super(const FormsValidate(
-           // email: "",
-            email: "example@gmail.com",
+          email: "example@gmail.com",
             senha: "",
+            nome: "",
             isEmailValid: true,
             isPasswordValid: true,
             isFormValid: false,
@@ -125,8 +125,7 @@ class FormBloc extends Bloc<FormEvent, FormsValidate> {
   ///cadastro
   _updateUIAndSignUp(
       FormSubmitted event, Emitter<FormsValidate> emit, UserModel user) async {
-    emit(
-      state.copyWith(errorMessage: "",
+    emit(state.copyWith(errorMessage: "",
         isFormValid: _isPasswordValid(state.senha) &&
             _isEmailValid(state.email) &&
             _isAgeValid(state.idade) &&

@@ -1,10 +1,12 @@
 
 
+import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
   FirebaseAuth auth = FirebaseAuth.instance;
+  DatabaseService dbService = DatabaseService();
 
   ///altera o estado do usuario se for diferente de null ele retorna os dados, senão ele
   ///preenche o uid com  a string uid;
@@ -40,6 +42,11 @@ class AuthenticationService {
     }
   }
 
+
+  @override
+  Future<Map<String,dynamic>> retrieveUser(UserModel user) {
+    return dbService.retrieveUser(user);
+  }
 
   ///sair
   Future<void> signOut() async {

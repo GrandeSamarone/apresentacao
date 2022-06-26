@@ -13,34 +13,23 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-        listeners: [
-          BlocListener<FormBloc, FormsValidate>(
-            listener: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        ErrorDialog(errorMessage: state.errorMessage));
-              } else if (state.isFormValid && !state.isLoading) {
-                context.read<AuthenticationBloc>().add(AuthenticationStarted());
-                context.read<FormBloc>().add(const FormSucceeded());
-              } else if (state.isFormValidateFailed) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Por favor, preencha os dados corretamente!")));
-              }
-            },
-          ),
-          BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              if (state is AuthenticationSuccess) {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                    (Route<dynamic> route) => false);
-              }
-            },
-          ),
-        ],
+    return BlocListener<FormBloc, FormsValidate>(
+      listener: (context, state) {
+        if (state.errorMessage.isNotEmpty) {
+          ///exibindo o dialog do erro
+          showDialog(
+              context: context,
+              builder: (context) =>
+                  ErrorDialog(errorMessage: state.errorMessage));
+
+        } else if (state.isFormValid && !state.isLoading) {
+          context.read<AuthenticationBloc>().add(AuthenticationStarted());
+          context.read<FormBloc>().add(const FormSucceeded());
+        } else if (state.isFormValidateFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Por favor, preencha os dados corretamente!")));
+        }
+      },
         child: Scaffold(
             body: Center(
               child: SingleChildScrollView(
@@ -77,7 +66,7 @@ class _EmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FormBloc, FormsValidate>(
       builder: (context, state) {
-        return SizedBox(
+        return Container(
           width:280,
           child: TextFormField(
               onChanged: (value) {
@@ -88,27 +77,31 @@ class _EmailField extends StatelessWidget {
                 fontSize: 14.0,
                 fontFamily: "Brand-Regular",),
               keyboardType: TextInputType.emailAddress,
-              decoration:const InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.grey),
-                helperStyle: TextStyle(color: Colors.grey),
-                errorStyle:  TextStyle(color: Colors.red),
-                hintStyle:  TextStyle(color: Colors.grey),
-                contentPadding:  EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 10.0),
-                enabledBorder:  OutlineInputBorder(
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
                   borderSide:  BorderSide(color: Colors.white, width: 0.0),
                 ),
-                border:  OutlineInputBorder(
-              borderSide: BorderSide(color:  Colors.white, width: 3.0))
-        ,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFEFEFEF), width: 3.0)),
+                labelText: 'Email',
+                labelStyle:const TextStyle(color: Colors.grey),
+                helperText: 'complete o email ex:joe@gmail.com',
+                helperStyle: const TextStyle(color: Colors.grey),
+                errorText: !state.isEmailValid
+                    ? 'Por favor inserir um email valido'
+                    : null,
+                errorStyle: const TextStyle(color: Colors.red),
+                hintText: 'Email',
+                hintStyle: const TextStyle(color: Colors.grey),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 10.0),
+
               )),
         );
       },
     );
   }
 }
-
 class _PasswordField extends StatelessWidget {
   const _PasswordField({Key? key}) : super(key: key);
 
@@ -190,6 +183,8 @@ class _DisplayNameField extends StatelessWidget {
             ),
             onChanged: (value) {
               context.read<FormBloc>().add(NameChanged(value));
+              print("ONCHANGEDNAME");
+              print(value);
             },
           ),
         );

@@ -21,12 +21,12 @@ class FormsValidate extends FormState {
       required this.isNameValid,
       required this.isAgeValid,
       required this.isFormValidateFailed,
-      this.nome,
+        required this.nome,
       required this.idade,
       this.isFormSuccessful = false});
 
   final String email;
-  final String? nome;
+  final String nome;
   final int idade;
   final String senha;
   final bool isEmailValid;
@@ -56,6 +56,7 @@ class FormsValidate extends FormState {
     return FormsValidate(
         email: email ?? this.email,
         senha: senha ?? this.senha,
+        nome: nome ?? this.nome,
         isEmailValid: isEmailValid ?? this.isEmailValid,
         isPasswordValid: isPasswordValid ?? this.isPasswordValid,
         isFormValid: isFormValid ?? this.isFormValid,
@@ -64,7 +65,6 @@ class FormsValidate extends FormState {
         isNameValid: isNameValid ?? this.isNameValid,
         idade: idade ?? this.idade,
         isAgeValid: isAgeValid ?? this.isAgeValid,
-        nome: nome ?? this.nome,
         isFormValidateFailed: isFormValidateFailed ?? this.isFormValidateFailed,
         isFormSuccessful: isFormSuccessful ?? this.isFormSuccessful);
   }
@@ -73,14 +73,14 @@ class FormsValidate extends FormState {
   List<Object?> get props => [
         email,
         senha,
+         nome,
+         idade,
         isEmailValid,
         isPasswordValid,
         isFormValid,
         isLoading,
         errorMessage,
         isNameValid,
-         nome,
-        idade,
         isFormValidateFailed,
         isFormSuccessful
       ];
