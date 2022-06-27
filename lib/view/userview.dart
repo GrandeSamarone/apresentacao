@@ -26,7 +26,8 @@ class _userviewState extends State<userview> {
   Widget build(BuildContext context) {
 
    /// recebendo os dados do usuario atual
-    final userdados = context.select((AuthenticationBloc bloc) => bloc.state.get_Dados);
+    final userdados =
+    context.select((AuthenticationBloc bloc) => bloc.state.get_Dados);
 
         return Scaffold(
             appBar: AppBar(

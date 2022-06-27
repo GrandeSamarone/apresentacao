@@ -13,7 +13,7 @@ class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
   final DatabaseService _databaseRepository;
   NotBloc( this._databaseRepository)
       : super(const FormsNotValidate(
-      titulo: "example@gmail.com",
+      titulo: "titulo",
       descricao: "",
       foto: "",
       isTituloValid: true,
@@ -43,7 +43,7 @@ class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
     return link!.isNotEmpty;
   }
 
-  ///recebendo o email
+  ///recebendo o titulo
   _onTituloChanged(TituloChanged event, Emitter<FormsNotValidate> emit) {
     emit(state.copyWith(
       isFormNotSuccessful: false,

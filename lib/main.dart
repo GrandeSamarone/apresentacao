@@ -1,4 +1,3 @@
-import 'package:apresentacao/features/NavigationService.dart';
 import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_bloc.dart';
@@ -60,7 +59,6 @@ class App extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeView(),
-        navigatorKey: NavigationService.navigatorKeyGlobal,
         theme: ThemeData(
           primarySwatch: Colors.red,
           scaffoldBackgroundColor: const Color(0xFF403939),
