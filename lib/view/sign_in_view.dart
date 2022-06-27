@@ -27,7 +27,9 @@ class SignInView extends StatelessWidget {
                   builder: (context) =>
                       ErrorDialog(errorMessage: state.errorMessage));
             } else if (state.isFormValid && !state.isLoading) {
+              ///authenticando o usuario
               context.read<AuthenticationBloc>().add(AuthenticationStarted());
+              context.read<FormBloc>().add(const FormSucceeded());
             } else if (state.isFormValidateFailed) {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Por favor, preencha os dados corretamente!")));

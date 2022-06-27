@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:apresentacao/features/noticias/UploadImg/UploadImgNewsState.dart';
 import 'package:apresentacao/features/noticias/bloc/not_bloc.dart';
 import 'package:apresentacao/view/sign_in_view.dart';
@@ -24,6 +26,8 @@ class NovaNewsView extends StatelessWidget {
 
      } else if (state.isFormNotValid && !state.isLoadingNot) {
        context.read<NotBloc>().add(const FormNotSucceeded());
+       ScaffoldMessenger.of(context).showSnackBar(
+           const SnackBar(content: Text("Publicado com Sucesso!",style: TextStyle(color: Colors.white),),backgroundColor: Colors.green));
      } else if (state.isFormNotValidateFailed) {
        ScaffoldMessenger.of(context).showSnackBar(
            const SnackBar(content: Text("Por favor, preencha os dados corretamente!")));
@@ -66,7 +70,7 @@ class _ImgFieldState extends State<_ImgField> {
   final uploadBLoc=UploadBlocNew();
 
   String urlImg='https://firebasestorage.googleapis.com/v0/b/apresentacao-a6686.appspot.com/o/News%2Fadd-photo.png?alt=media&token=86e92526-ad23-4214-a65d-1db42c5b6e55';
-
+  ///imagem padrao para mostrar quando nao tiver nemhuma carregada
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UploadImgNewsState>(
@@ -92,12 +96,15 @@ class _ImgFieldState extends State<_ImgField> {
             );
           }
           if (state is upload_Errornew) {
+            ///Error
             return Text("Error",style: TextStyle(color: Colors.red,fontSize: 20),);
           }
           if (state is upload_Loadingnew) {
+            ///carregando
             return  CircularProgressIndicator();
           }
           final linkdata=state as upload_sucessnew;
+          ///aqui ele ja manda o link e verifica se tem alguma irregularidade
           context.read<NotBloc>().add(FotoNewChanged(linkdata.link));
           return InkWell(
               child: Container(
@@ -121,6 +128,7 @@ class _ImgFieldState extends State<_ImgField> {
   }
 
   ClickImg()async{
+    ///carrega a imagem
     final image_picker = ImagePicker();
     await Permission.photos.request();
 

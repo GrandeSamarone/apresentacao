@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class Details extends StatelessWidget {
 
   final MovieModel film_details;
+  ///recebendo os dados do filme
   const Details({Key? key,required this.film_details}) : super(key: key);
 
   @override
@@ -17,7 +18,6 @@ class Details extends StatelessWidget {
       body:Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Container(
             width: double.infinity,
             height: 300,

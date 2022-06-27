@@ -8,6 +8,7 @@ import '../models/news.dart';
 class DetailsNews extends StatelessWidget {
 
   final News news_details;
+  ///recebendo os dados da noticia
   const DetailsNews({Key? key,required this.news_details}) : super(key: key);
 
   @override

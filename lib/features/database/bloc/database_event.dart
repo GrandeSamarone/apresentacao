@@ -9,9 +9,7 @@ abstract class DatabaseEvent extends Equatable {
 }
 
 class DatabaseFetched extends DatabaseEvent {
-  final Map<String,dynamic> dados;
-
-  const DatabaseFetched(this.dados);
+  const DatabaseFetched();
   @override
-  List<Object?> get props => [dados];
+  List<Object?> get props => [];
 }

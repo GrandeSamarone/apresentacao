@@ -13,13 +13,12 @@ class DatabaseInitial extends DatabaseState {}
 
 class DatabaseSuccess extends DatabaseState {
   final List<News> listOfNew;
-  final  Map<String,dynamic> dados;
 
   ///emitindo com sucesso
-  const DatabaseSuccess(this.listOfNew,this.dados);
+  const DatabaseSuccess(this.listOfNew);
 
     @override
-  List<Object?> get props => [listOfNew,dados];
+  List<Object?> get props => [listOfNew];
 }
 
 ///error

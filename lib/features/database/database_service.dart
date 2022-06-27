@@ -18,9 +18,9 @@ class DatabaseService {
   }
 
   ///resgatando a list de noticias do firestore
-    Future<List<News>> retrieveUserData() async {
+    Future<List<News>> retrieveNewsData() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection("News").get();
+        await _db.collection("News").orderBy("uid").get();
     return snapshot.docs.map((docSnapshot) => News.fromDocumentSnapshot(docSnapshot)).toList();
     }
 

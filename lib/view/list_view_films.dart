@@ -20,16 +20,18 @@ class _MoviesPageState extends State<listviewfilms> {
       body: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           if (state is LoadingState) {
+            ///estado inicial
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (state is ErrorState) {
+            ///estado error
             return const Center(
               child: Icon(Icons.close),
             );
           } else if (state is LoadedState) {
             final movies = state.movies;
-
+            ///estado final carregando os itens
             return ListView.builder(
               itemCount: movies.length,
               itemBuilder: (context, index){

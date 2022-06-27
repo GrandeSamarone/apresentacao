@@ -18,13 +18,9 @@ class listnewsview extends StatelessWidget {
             ),
             body: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (context, state) {
-                Map<String,dynamic> displayDados = (context.read<AuthenticationBloc>().state as AuthenticationSuccess).dados!;
-                if (state is DatabaseSuccess &&
-                    displayDados != (context.read<DatabaseBloc>().state as DatabaseSuccess).dados) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayDados));
-                }
                 if (state is DatabaseInitial) {
-                  context.read<DatabaseBloc>().add(DatabaseFetched(displayDados));
+                  ///começa carregando os dados
+                  context.read<DatabaseBloc>().add(DatabaseFetched());
                   return const Center(child: CircularProgressIndicator());
                 } else
                   if (state is DatabaseSuccess) {
@@ -33,6 +29,7 @@ class listnewsview extends StatelessWidget {
                       child: Text("Nenhum dado disponível!"),
                     );
                   } else {
+                    ///mostra na tela
                     return Center(
                       child: ListView.builder(
                         itemCount: state.listOfNew.length,
@@ -48,15 +45,16 @@ class listnewsview extends StatelessWidget {
               },
             ),
           floatingActionButton: FloatingActionButton(
-          onPressed:(){
-          final result=  Navigator.push(
+          onPressed:()async{
+          var resultado=await Navigator.push(
               context,
               MaterialPageRoute(builder: (context) =>NovaNewsView()));
-
-          },
-          tooltip: 'Increment',
+          if(resultado==null)
+            context.read<DatabaseBloc>().add(DatabaseFetched());
+        },
           child: const Icon(Icons.add),
         ),
         );
   }
-}
+  }
+

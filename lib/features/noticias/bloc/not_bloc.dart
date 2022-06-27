@@ -80,7 +80,7 @@ class NotBloc extends Bloc<NotEvent, FormsNotValidate> {
   }
 
 
-  ///recebe os dados e verifica se é um login ou um cadastro
+  ///recebe os dados e verifica
   _onFormNotSubmitted(FormNotSubmitted event, Emitter<FormsNotValidate> emit) async {
     News user = News(
        uid: short.generate(),
