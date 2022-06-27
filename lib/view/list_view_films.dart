@@ -1,4 +1,4 @@
-import 'package:apresentacao/features/movies/movie_cubit.dart';
+import 'package:apresentacao/features/movies/movie_bloc.dart';
 import 'package:apresentacao/features/movies/movie_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ class _MoviesPageState extends State<listviewfilms> {
       appBar: AppBar(
         title:const Center(child:  Text('FILMES DA SEMANA')),
       ),
-      body: BlocBuilder<MoviesCubit, MoviesState>(
+      body: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(

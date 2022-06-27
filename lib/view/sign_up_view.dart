@@ -1,9 +1,9 @@
 import 'dart:ui';
-import 'package:apresentacao/features/UploadImgBloc/UploadImgBloc.dart';
-import 'package:apresentacao/features/UploadImgBloc/Upload_img_state.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
+import 'package:apresentacao/features/form-validation/upload_img/UploadImgBloc.dart';
+import 'package:apresentacao/features/form-validation/upload_img/Upload_img_state.dart';
 import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

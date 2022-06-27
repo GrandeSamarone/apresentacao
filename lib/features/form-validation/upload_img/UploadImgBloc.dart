@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:apresentacao/features/UploadImgBloc/Upload_img_state.dart';
+import 'package:apresentacao/features/form-validation/upload_img/Upload_img_state.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:short_uuids/short_uuids.dart';

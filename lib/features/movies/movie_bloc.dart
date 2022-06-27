@@ -3,8 +3,8 @@ import 'package:apresentacao/features/movies/movie_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class MoviesCubit extends Cubit<MoviesState> {
-  MoviesCubit({required this.repository}) : super(InitialState()) {
+class MoviesBloc extends Bloc<String,MoviesState> {
+  MoviesBloc({required this.repository}) : super(InitialState()) {
     getTrendingMovies();
   }
 

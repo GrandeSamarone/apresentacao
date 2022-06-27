@@ -25,7 +25,7 @@ class Details extends StatelessWidget {
               child: FadeInImage.assetNetwork(
                 fit: BoxFit.fill,
                 placeholder: 'imagens/loading-carregando.gif',
-                image:film_details.urlImage!,
+                image:film_details.urlImage,
               ),
             ),
           ),

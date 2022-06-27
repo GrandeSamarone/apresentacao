@@ -1,6 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:apresentacao/models/movie_model.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class MovieRepository {
   const MovieRepository(this.client);
@@ -9,11 +12,10 @@ class MovieRepository {
 
   Future<List<MovieModel>> getMovies() async {
     try {
-      final url =
+      final  url =
           'https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f';
 
       final response = await client.get(url);
-
       final movies = List<MovieModel>.of(
         response.data['results'].map<MovieModel>(
           (json) => MovieModel(

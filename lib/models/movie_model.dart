@@ -18,4 +18,6 @@ class MovieModel {
   final String? date;
   final double? vote_average;
   final int? vote_count;
+
+
 }
