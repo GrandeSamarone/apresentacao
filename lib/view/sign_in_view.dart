@@ -5,7 +5,6 @@ import 'package:apresentacao/features/authentication/bloc/authentication_bloc.da
 import 'package:apresentacao/features/authentication/bloc/authentication_event.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
 import 'package:apresentacao/features/form-validation/bloc/form_bloc.dart';
-import 'package:apresentacao/view/Splash_view.dart';
 import 'package:apresentacao/view/home_view.dart';
 import 'package:apresentacao/view/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class SignInView extends StatelessWidget {
             ///se o usuario autenticar ele envia para a splash screen
             if (state is AuthenticationSuccess) {
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => Splash_View()),
+                  MaterialPageRoute(builder: (context) => HomeView()),
                   (Route<dynamic> route) => false);
             }
           },

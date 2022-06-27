@@ -49,10 +49,9 @@ class listnewsview extends StatelessWidget {
             ),
           floatingActionButton: FloatingActionButton(
           onPressed:(){
-            Navigator.push(
+          final result=  Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>NovaNewsView()),
-            );
+              MaterialPageRoute(builder: (context) =>NovaNewsView()));
 
           },
           tooltip: 'Increment',

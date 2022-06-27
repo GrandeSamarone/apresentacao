@@ -1,4 +1,3 @@
-
 import 'package:apresentacao/features/noticias/UploadImg/UploadImgNewsState.dart';
 import 'package:apresentacao/features/noticias/bloc/not_bloc.dart';
 import 'package:apresentacao/view/sign_in_view.dart';
@@ -14,7 +13,23 @@ class NovaNewsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+   return BlocListener<NotBloc, FormsNotValidate>(
+       listener: (context, state) {
+     if (state.errorMessageNot.isNotEmpty) {
+       ///exibindo o dialog do erro
+       showDialog(
+           context: context,
+           builder: (context) =>
+               ErrorDialog(errorMessage: state.errorMessageNot));
+
+     } else if (state.isFormNotValid && !state.isLoadingNot) {
+       context.read<NotBloc>().add(const FormNotSucceeded());
+     } else if (state.isFormNotValidateFailed) {
+       ScaffoldMessenger.of(context).showSnackBar(
+           const SnackBar(content: Text("Por favor, preencha os dados corretamente!")));
+     }
+   },
+     child:Scaffold(
        appBar: AppBar(
          title:const Text("Publicar"),
        ),
@@ -33,7 +48,7 @@ class NovaNewsView extends StatelessWidget {
                     ]),
               ),
             )
-    );
+    ));
   }
 }
 

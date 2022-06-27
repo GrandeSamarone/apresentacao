@@ -1,7 +1,7 @@
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_state.dart';
-import 'package:apresentacao/view/Splash_view.dart';
 import 'package:apresentacao/view/list_view_films.dart';
+import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'list_news_view.dart';
@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
       listener: (context, state) {
         if (state is AuthenticationFailure) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) =>Splash_View()),
+              MaterialPageRoute(builder: (context) =>SignInView()),
               (Route<dynamic> route) => false);
         }
       },

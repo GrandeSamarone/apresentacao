@@ -1,10 +1,10 @@
 
 import 'package:apresentacao/features/database/bloc/database_event.dart';
 import 'package:apresentacao/features/database/bloc/database_state.dart';
-import 'package:apresentacao/models/news.dart';
 import 'package:apresentacao/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../models/news.dart';
 import '../database_service.dart';
 
 class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {

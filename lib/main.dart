@@ -3,7 +3,8 @@ import 'package:apresentacao/features/authentication/authenticate_service.dart';
 import 'package:apresentacao/features/database/database_service.dart';
 import 'package:apresentacao/features/movies/movie_cubit.dart';
 import 'package:apresentacao/features/movies/movie_repository.dart';
-import 'package:apresentacao/view/Splash_view.dart';
+import 'package:apresentacao/view/home_view.dart';
+import 'package:apresentacao/view/sign_in_view.dart';
 import 'package:dio/dio.dart';
 import 'package:apresentacao/AppBlocObserver.dart';
 import 'package:apresentacao/features/authentication/bloc/authentication_bloc.dart';
@@ -58,7 +59,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Splash_View(),
+        home: HomeView(),
         navigatorKey: NavigationService.navigatorKeyGlobal,
         theme: ThemeData(
           primarySwatch: Colors.red,
